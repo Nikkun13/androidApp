@@ -21,6 +21,29 @@ export default function App() {
 
   const onChangeNumber = (number) => {
     setDiceNumber(number);
+    switch (number) {
+      case "4":
+        setImagenLados(require("./img/4ladosdice.png"));
+        break;
+      case "6":
+        setImagenLados(require("./img/6ladosdice.png"));
+        break;
+      case "8":
+        setImagenLados(require("./img/8ladosdice.png"));
+        break;
+      case "10":
+        setImagenLados(require("./img/10ladosdice.png"));
+        break;
+      case "12":
+        setImagenLados(require("./img/12ladosdice.png"));
+        break;
+      case "20":
+        setImagenLados(require("./img/20ladosdice.png"));
+        break;
+
+      default:
+        break;
+    }
   };
 
   const addDice = () => {
@@ -32,43 +55,18 @@ export default function App() {
       diceNumber == 12 ||
       diceNumber == 20
     ) {
-      switch (diceNumber) {
-        case "4":
-          setImagenLados(require("./img/4ladosdice.png"));
-          break;
-        case "6":
-          setImagenLados(require("./img/6ladosdice.png"));
-          break;
-        case "8":
-          setImagenLados(require("./img/8ladosdice.png"));
-          break;
-        case "10":
-          setImagenLados(require("./img/10ladosdice.png"));
-          break;
-        case "12":
-          setImagenLados(require("./img/12ladosdice.png"));
-          break;
-        case "20":
-          setImagenLados(require("./img/20ladosdice.png"));
-          break;
-
-        default:
-          break;
-      }
       setDices((oldArry) => [
         ...oldArry,
         {
           id: Date.now(),
           value: diceNumber,
-          img: imagenLados,
+          imgSource: imagenLados,
         },
       ]);
-      setDiceNumber("");
-      setImagenLados("");
     } else {
       alert("Escriba 4, 6, 8, 10, 12 o 20");
-      setDiceNumber("");
     }
+    setDiceNumber("");
   };
 
   const irBolsa = () => {
@@ -77,7 +75,6 @@ export default function App() {
   };
 
   const [selectedDice, setSelectedDice] = useState(null);
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const selectDice = (dice) => {
@@ -95,7 +92,7 @@ export default function App() {
     <View style={styles.container}>
       <View>
         {bolsa ? (
-          <>
+          <View style={styles.menu}>
             <View>
               <Text style={styles.textoUno}>Hola Coder!</Text>
               <Text style={styles.textoUno}>Soy Nicolás</Text>
@@ -114,24 +111,26 @@ export default function App() {
               color="#841584"
               onPress={irBolsa}
             />
-          </>
+          </View>
         ) : (
-          <>
+          <View style={styles.bolsa}>
             <View>
               <Text style={styles.textoUno}>En la bolsa!</Text>
             </View>
-            <View style={styles.container}>
+            <View style={styles.centrar}>
               <Text style={styles.textoDos}>
                 Seleccionar número de caras del dado a arrojar
               </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeNumber}
-                value={diceNumber}
-                placeholder="4, 6, 8, 10, 12, o 20"
-                keyboardType="numeric"
-              />
-              <Button title="Agregar dado a la bolsa" onPress={addDice} />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={onChangeNumber}
+                  value={diceNumber}
+                  placeholder="4, 6, 8, 10, 12, o 20"
+                  keyboardType="numeric"
+                />
+                <Button title="Agregar dado" onPress={addDice} />
+              </View>
             </View>
             <FlatList
               data={dices}
@@ -142,7 +141,10 @@ export default function App() {
                     selectDice(data.item);
                   }}
                 >
-                  <Image style={styles.imagenDado} source={data.item.img} />
+                  <Image
+                    style={styles.imagenDado}
+                    source={data.item.imgSource}
+                  />
                   <Text style={styles.textoTres}>{data.item.value}</Text>
                 </Pressable>
               )}
@@ -194,7 +196,7 @@ export default function App() {
             <View>
               <Button title="Regresar" color="#841584" onPress={irBolsa} />
             </View>
-          </>
+          </View>
         )}
       </View>
 

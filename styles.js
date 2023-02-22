@@ -3,7 +3,19 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#40CFFF",
+    backgroundColor: "#ccc",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  menu: {
+    flex: 1,
+    backgroundColor: "#ccc",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  bolsa: {
+    flex: 1,
+    backgroundColor: "#fcbf6b",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -26,17 +38,22 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
+  centrar: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   imagen: {
     height: 300,
     width: 300,
     borderRadius: 150,
   },
   input: {
-    width: 200,
+    width: 150,
     borderBottomColor: "black",
     borderBottomWidth: 1,
     fontSize: 16,
     textAlign: "center",
+    margin: 5,
   },
   diceContainer: {
     marginTop: 30,
@@ -49,15 +66,15 @@ export const styles = StyleSheet.create({
   contentList: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: "#ccc",
+    backgroundColor: "#fcbf6b",
     justifyContent: "center",
   },
   modalContainer: {
-    height: 400,
+    height: "auto",
     width: 300,
     marginTop: 100,
     alignSelf: "center",
-    backgroundColor: "lime",
+    backgroundColor: "#d34017",
   },
   modalTitle: {
     padding: 10,
@@ -76,6 +93,12 @@ export const styles = StyleSheet.create({
     width: 40,
     position: "absolute",
     left: "50%",
-    marginLeft: -10,
+    marginLeft: -9,
+  },
+  inputContainer: {
+    marginTop: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
