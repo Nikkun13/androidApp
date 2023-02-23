@@ -18,6 +18,7 @@ export default function App() {
   const [diceNumber, setDiceNumber] = useState("");
   const [dices, setDices] = useState([]);
   const [imagenLados, setImagenLados] = useState("");
+  const [resultados, setResultados] = useState([]);
 
   const onChangeNumber = (number) => {
     setDiceNumber(number);
@@ -72,6 +73,7 @@ export default function App() {
   const irBolsa = () => {
     setBolsa(!bolsa);
     setDices([]);
+    setResultados([]);
   };
 
   const [selectedDice, setSelectedDice] = useState(null);
@@ -86,6 +88,21 @@ export default function App() {
     setModalVisible(!modalVisible);
     setDices((oldArry) => oldArry.filter((item) => item.id !== id));
     setSelectedDice(null);
+  };
+
+  //const aleatorio = (caras) => Math.floor(Math.random() * caras + 1);
+
+  const lanzamiento = (dices) => {
+    dices.map((dice) => {
+      //let valor = aleatorio(dice.value);
+      let valor = Math.floor(Math.random() * dice.value + 1);
+      setResultados((resultadosAnteriores) => [...resultadosAnteriores, valor]);
+      console.log(dices);
+      console.log(resultados);
+      console.log(valor);
+    });
+    console.log(resultados);
+    //alert("El resultado total es " + valor);
   };
 
   return (
@@ -191,7 +208,11 @@ export default function App() {
               </View>
             </Modal>
             <View>
-              <Button title="Lanzar Dados" color="#FF8000" />
+              <Button
+                title="Lanzar Dados"
+                color="#FF8000"
+                onPress={() => lanzamiento(dices)}
+              />
             </View>
             <View>
               <Button title="Regresar" color="#841584" onPress={irBolsa} />

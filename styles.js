@@ -89,8 +89,8 @@ export const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   imagenDado: {
-    height: 40,
-    width: 40,
+    height: 42,
+    width: 42,
     position: "absolute",
     left: "50%",
     marginLeft: -9,
