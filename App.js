@@ -1,5 +1,4 @@
 import {
-  Button,
   FlatList,
   Image,
   Modal,
@@ -10,6 +9,8 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
+import Button from "./src/Button";
+import MenuInicial from "./src/MenuInicial";
 import { StatusBar } from "expo-status-bar";
 import { styles } from "./styles";
 
@@ -17,29 +18,43 @@ export default function App() {
   const [bolsa, setBolsa] = useState(true);
   const [diceNumber, setDiceNumber] = useState("");
   const [dices, setDices] = useState([]);
-  const [imagenLados, setImagenLados] = useState("");
-  const [resultados, setResultados] = useState([]);
+  const [colorDado, setColorDado] = useState("");
+  const [desactivado, setDesactivado] = useState(false);
+  const [desactivado3, setDesactivado3] = useState(false);
+
+  useEffect(() => {
+    if (dices.length > 21) {
+      setDesactivado3(true);
+      if (dices.length > 23) {
+        setDesactivado(true);
+      } else {
+        setDesactivado(false);
+      }
+    } else {
+      setDesactivado3(false);
+    }
+  }, [dices]);
 
   const onChangeNumber = (number) => {
     setDiceNumber(number);
     switch (number) {
       case "4":
-        setImagenLados(require("./img/4ladosdice.png"));
+        setColorDado(styles.red);
         break;
       case "6":
-        setImagenLados(require("./img/6ladosdice.png"));
+        setColorDado(styles.white);
         break;
       case "8":
-        setImagenLados(require("./img/8ladosdice.png"));
+        setColorDado(styles.yellow);
         break;
       case "10":
-        setImagenLados(require("./img/10ladosdice.png"));
+        setColorDado(styles.blue);
         break;
       case "12":
-        setImagenLados(require("./img/12ladosdice.png"));
+        setColorDado(styles.green);
         break;
       case "20":
-        setImagenLados(require("./img/20ladosdice.png"));
+        setColorDado(styles.violet);
         break;
 
       default:
@@ -61,7 +76,7 @@ export default function App() {
         {
           id: Date.now(),
           value: diceNumber,
-          imgSource: imagenLados,
+          colorD: colorDado,
         },
       ]);
     } else {
@@ -73,7 +88,7 @@ export default function App() {
   const irBolsa = () => {
     setBolsa(!bolsa);
     setDices([]);
-    setResultados([]);
+    setDesactivado(false);
   };
 
   const [selectedDice, setSelectedDice] = useState(null);
@@ -90,46 +105,80 @@ export default function App() {
     setSelectedDice(null);
   };
 
-  //const aleatorio = (caras) => Math.floor(Math.random() * caras + 1);
+  const add3Dice = (id, dices) => {
+    setModalVisible(!modalVisible);
+    let valor;
+    let colorDadoAdd3;
+    dices.map((dice) => {
+      if (dice.id == id) {
+        valor = dice.value;
+        colorDadoAdd3 = dice.colorD;
+      }
+    });
+    console.log(colorDadoAdd3);
+    for (let j = 1; j < 4; j++) {
+      setDices((oldArry) => [
+        ...oldArry,
+        {
+          id: Date.now() + j,
+          value: valor,
+          colorD: colorDadoAdd3,
+        },
+      ]);
+    }
+  };
 
   const lanzamiento = (dices) => {
+    let resultado = [];
+    let caras = [];
+    let cantidad = dices.length;
     dices.map((dice) => {
-      //let valor = aleatorio(dice.value);
       let valor = Math.floor(Math.random() * dice.value + 1);
-      setResultados((resultadosAnteriores) => [...resultadosAnteriores, valor]);
-      console.log(dices);
-      console.log(resultados);
-      console.log(valor);
+      resultado = [...resultado, valor];
+      caras = [...caras, dice.value];
     });
-    console.log(resultados);
-    //alert("El resultado total es " + valor);
+    let final = "";
+    for (let i = 0; i < cantidad; i++) {
+      final =
+        final +
+        "Dado-" +
+        (i + 1) +
+        " (" +
+        caras[i] +
+        " caras) = " +
+        resultado[i] +
+        ". /// ";
+    }
+    alert("El resultado es " + final);
   };
 
   return (
     <View style={styles.container}>
       <View>
         {bolsa ? (
-          <View style={styles.menu}>
-            <View>
-              <Text style={styles.textoUno}>Hola Coder!</Text>
-              <Text style={styles.textoUno}>Soy Nicolás</Text>
-            </View>
-            <View>
-              <Image
-                style={styles.imagen}
-                source={require("./img/Dados.jpg")}
-              />
-            </View>
-            <Text style={styles.textoDos}>
-              Como primera app crearé un simulador de dados.
-            </Text>
-            <Button
-              title="Ir a la Bolsa de Dados"
-              color="#841584"
-              onPress={irBolsa}
-            />
-          </View>
+          <MenuInicial irBolsa={irBolsa} />
         ) : (
+          // <View style={styles.menu}>
+          //   <View>
+          //     <Text style={styles.textoUno}>Hola Coder!</Text>
+          //     <Text style={styles.textoUno}>Soy Nicolás</Text>
+          //   </View>
+          //   <View>
+          //     <Image
+          //       style={styles.imagen}
+          //       source={require("./img/Dados.jpg")}
+          //     />
+          //   </View>
+          //   <Text style={styles.textoDos}>
+          //     Como primera app crearé un simulador de dados.
+          //   </Text>
+          //   <Button
+          //     styleButtonType={styles.buttonRegresar}
+          //     onPress={irBolsa}
+          //     title="Ir a la Bolsa de Dados"
+          //     disabled={false}
+          //   />
+          // </View>
           <View style={styles.bolsa}>
             <View>
               <Text style={styles.textoUno}>En la bolsa!</Text>
@@ -146,23 +195,26 @@ export default function App() {
                   placeholder="4, 6, 8, 10, 12, o 20"
                   keyboardType="numeric"
                 />
-                <Button title="Agregar dado" onPress={addDice} />
+                <Button
+                  styleButtonType={styles.buttonAgregar}
+                  onPress={addDice}
+                  title="Agregar dado"
+                  disabled={desactivado}
+                />
               </View>
             </View>
             <FlatList
               data={dices}
+              horizontal={false}
+              numColumns={3}
               renderItem={(data) => (
                 <Pressable
-                  style={styles.contentList}
+                  style={[styles.contentList, data.item.colorD]}
                   onPress={() => {
                     selectDice(data.item);
                   }}
                 >
-                  <Image
-                    style={styles.imagenDado}
-                    source={data.item.imgSource}
-                  />
-                  <Text style={styles.textoTres}>{data.item.value}</Text>
+                  <Text style={styles.numeroDado}>{data.item.value}</Text>
                 </Pressable>
               )}
               keyExtractor={(item) => item.id.toString()}
@@ -172,50 +224,65 @@ export default function App() {
               transparent={true}
               visible={modalVisible}
             >
-              <View style={styles.modalContainer}>
-                <View styles={styles.modalTitle}>
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      fontSize: 20,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Eliminar Dado
-                  </Text>
-                </View>
-                <View styles={styles.modalContent}>
-                  <Text>
-                    ¿Está seguro que desea eliminar el Dado de{" "}
-                    {selectedDice?.value} caras?
-                  </Text>
-                </View>
-                <View styles={styles.modalActions}>
-                  <Button
-                    title="Cancelar"
-                    onPress={() => {
-                      setModalVisible(false);
-                      setSelectedDice(null);
-                    }}
-                  />
-                  <Button
-                    title="Eliminar"
-                    onPress={() => {
-                      removeDice(selectedDice.id);
-                    }}
-                  />
+              <View style={styles.modalMainView}>
+                <View style={styles.modalView}>
+                  <View styles={styles.modalTitle}>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        fontSize: 20,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Dado de {selectedDice?.value} caras
+                    </Text>
+                  </View>
+                  <View styles={styles.modalContent}>
+                    <Text style={styles.textoTres}>¿Qué desea hacer?</Text>
+                  </View>
+                  <View styles={styles.modalActions}>
+                    <Button
+                      styleButtonType={styles.buttonAgregar}
+                      onPress={() => {
+                        add3Dice(selectedDice.id, dices);
+                      }}
+                      title="Agregar 3 Dados"
+                      disabled={desactivado3}
+                    />
+                    <Button
+                      styleButtonType={styles.buttonEliminar}
+                      onPress={() => {
+                        removeDice(selectedDice.id);
+                      }}
+                      title="Eliminar"
+                      disabled={false}
+                    />
+                    <Button
+                      styleButtonType={styles.buttonCancelar}
+                      onPress={() => {
+                        setModalVisible(false);
+                        setSelectedDice(null);
+                      }}
+                      title="Cancelar"
+                      disabled={false}
+                    />
+                  </View>
                 </View>
               </View>
             </Modal>
-            <View>
+            <View style={styles.inputContainer}>
               <Button
-                title="Lanzar Dados"
-                color="#FF8000"
+                styleButtonType={styles.buttonLanzar}
                 onPress={() => lanzamiento(dices)}
+                title="Lanzar Dados"
+                disabled={false}
               />
-            </View>
-            <View>
-              <Button title="Regresar" color="#841584" onPress={irBolsa} />
+              <Button
+                styleButtonType={styles.buttonRegresar}
+                onPress={irBolsa}
+                title="Regresar"
+                disabled={false}
+              />
             </View>
           </View>
         )}
