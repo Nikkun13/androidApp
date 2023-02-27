@@ -1,17 +1,9 @@
-import {
-  FlatList,
-  Image,
-  Modal,
-  Pressable,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
 import React, { useEffect, useState } from "react";
 
-import Button from "./src/Button";
+import Bolsa from "./src/Bolsa";
 import MenuInicial from "./src/MenuInicial";
 import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 import { styles } from "./styles";
 
 export default function App() {
@@ -128,6 +120,11 @@ export default function App() {
     }
   };
 
+  const cancelModal = () => {
+    setModalVisible(false);
+    setSelectedDice(null);
+  };
+
   const lanzamiento = (dices) => {
     let resultado = [];
     let caras = [];
@@ -158,133 +155,22 @@ export default function App() {
         {bolsa ? (
           <MenuInicial irBolsa={irBolsa} />
         ) : (
-          // <View style={styles.menu}>
-          //   <View>
-          //     <Text style={styles.textoUno}>Hola Coder!</Text>
-          //     <Text style={styles.textoUno}>Soy Nicolás</Text>
-          //   </View>
-          //   <View>
-          //     <Image
-          //       style={styles.imagen}
-          //       source={require("./img/Dados.jpg")}
-          //     />
-          //   </View>
-          //   <Text style={styles.textoDos}>
-          //     Como primera app crearé un simulador de dados.
-          //   </Text>
-          //   <Button
-          //     styleButtonType={styles.buttonRegresar}
-          //     onPress={irBolsa}
-          //     title="Ir a la Bolsa de Dados"
-          //     disabled={false}
-          //   />
-          // </View>
-          <View style={styles.bolsa}>
-            <View>
-              <Text style={styles.textoUno}>En la bolsa!</Text>
-            </View>
-            <View style={styles.centrar}>
-              <Text style={styles.textoDos}>
-                Seleccionar número de caras del dado a arrojar
-              </Text>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={onChangeNumber}
-                  value={diceNumber}
-                  placeholder="4, 6, 8, 10, 12, o 20"
-                  keyboardType="numeric"
-                />
-                <Button
-                  styleButtonType={styles.buttonAgregar}
-                  onPress={addDice}
-                  title="Agregar dado"
-                  disabled={desactivado}
-                />
-              </View>
-            </View>
-            <FlatList
-              data={dices}
-              horizontal={false}
-              numColumns={3}
-              renderItem={(data) => (
-                <Pressable
-                  style={[styles.contentList, data.item.colorD]}
-                  onPress={() => {
-                    selectDice(data.item);
-                  }}
-                >
-                  <Text style={styles.numeroDado}>{data.item.value}</Text>
-                </Pressable>
-              )}
-              keyExtractor={(item) => item.id.toString()}
-            />
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-            >
-              <View style={styles.modalMainView}>
-                <View style={styles.modalView}>
-                  <View styles={styles.modalTitle}>
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        fontSize: 20,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Dado de {selectedDice?.value} caras
-                    </Text>
-                  </View>
-                  <View styles={styles.modalContent}>
-                    <Text style={styles.textoTres}>¿Qué desea hacer?</Text>
-                  </View>
-                  <View styles={styles.modalActions}>
-                    <Button
-                      styleButtonType={styles.buttonAgregar}
-                      onPress={() => {
-                        add3Dice(selectedDice.id, dices);
-                      }}
-                      title="Agregar 3 Dados"
-                      disabled={desactivado3}
-                    />
-                    <Button
-                      styleButtonType={styles.buttonEliminar}
-                      onPress={() => {
-                        removeDice(selectedDice.id);
-                      }}
-                      title="Eliminar"
-                      disabled={false}
-                    />
-                    <Button
-                      styleButtonType={styles.buttonCancelar}
-                      onPress={() => {
-                        setModalVisible(false);
-                        setSelectedDice(null);
-                      }}
-                      title="Cancelar"
-                      disabled={false}
-                    />
-                  </View>
-                </View>
-              </View>
-            </Modal>
-            <View style={styles.inputContainer}>
-              <Button
-                styleButtonType={styles.buttonLanzar}
-                onPress={() => lanzamiento(dices)}
-                title="Lanzar Dados"
-                disabled={false}
-              />
-              <Button
-                styleButtonType={styles.buttonRegresar}
-                onPress={irBolsa}
-                title="Regresar"
-                disabled={false}
-              />
-            </View>
-          </View>
+          <Bolsa
+            onChangeNumber={onChangeNumber}
+            diceNumber={diceNumber}
+            addDice={addDice}
+            dices={dices}
+            modalVisible={modalVisible}
+            selectDice={selectDice}
+            selectedDice={selectedDice}
+            add3Dice={add3Dice}
+            removeDice={removeDice}
+            cancelModal={cancelModal}
+            lanzamiento={lanzamiento}
+            irBolsa={irBolsa}
+            desactivado={desactivado}
+            desactivado3={desactivado3}
+          />
         )}
       </View>
 
