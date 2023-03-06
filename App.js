@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import AppLoading from "expo-app-loading";
 import BolsaScreen from "./src/screens/BolsaScreen";
 import MenuInicialScreen from "./src/screens/MenuInicialScreen";
+import ResultadosScreen from "./src/screens/ResultadosScreen";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import { styles } from "./styles";
@@ -19,6 +20,8 @@ export default function App() {
     "roboto-bold": require("./assets/fonts/RobotoSlab-Bold.ttf"),
   });
   const [bolsa, setBolsa] = useState(true);
+  const [resultPage, setResultPage] = useState(true);
+  const [dices, setDices] = useState([]);
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -28,6 +31,11 @@ export default function App() {
 
   const irBolsa = () => {
     setBolsa(!bolsa);
+    setDices([]);
+  };
+
+  const irResultados = () => {
+    setResultPage(!resultPage);
   };
 
   if (!fontsLoaded) {
@@ -39,7 +47,22 @@ export default function App() {
         {bolsa ? (
           <MenuInicialScreen irBolsa={irBolsa} />
         ) : (
-          <BolsaScreen irBolsa={irBolsa} />
+          <>
+            {resultPage ? (
+              <BolsaScreen
+                irBolsa={irBolsa}
+                irResultados={irResultados}
+                dices={dices}
+                setDices={setDices}
+              />
+            ) : (
+              <ResultadosScreen
+                irBolsa={irBolsa}
+                irResultados={irResultados}
+                dices={dices}
+              />
+            )}
+          </>
         )}
       </View>
 

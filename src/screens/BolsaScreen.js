@@ -5,26 +5,31 @@ import Button from "../components/Button";
 import Modal from "../components/Modal";
 import { styles } from "../../styles";
 
-const BolsaScreen = ({ irBolsa }) => {
+const BolsaScreen = ({ irBolsa, irResultados, dices, setDices }) => {
   const [diceNumber, setDiceNumber] = useState("");
-  const [dices, setDices] = useState([]);
   const [colorDado, setColorDado] = useState("");
   const [desactivado, setDesactivado] = useState(false);
   const [desactivadoOpcionTresDados, setDesactivadoOpcionTresDados] =
     useState(false);
+  const [desactivadoLanzar, setDesactivadoLanzar] = useState(true);
   const [selectedDice, setSelectedDice] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    if (dices.length > 21) {
-      setDesactivadoOpcionTresDados(true);
-      if (dices.length > 23) {
-        setDesactivado(true);
-      } else {
-        setDesactivado(false);
-      }
+    if (dices.length < 1) {
+      setDesactivadoLanzar(true);
     } else {
-      setDesactivadoOpcionTresDados(false);
+      setDesactivadoLanzar(false);
+      if (dices.length > 21) {
+        setDesactivadoOpcionTresDados(true);
+        if (dices.length > 23) {
+          setDesactivado(true);
+        } else {
+          setDesactivado(false);
+        }
+      } else {
+        setDesactivadoOpcionTresDados(false);
+      }
     }
   }, [dices]);
 
@@ -106,6 +111,7 @@ const BolsaScreen = ({ irBolsa }) => {
           id: Date.now() + j,
           value: valor,
           colorD: colorDadoAdd3,
+          result: 0,
         },
       ]);
     }
@@ -116,28 +122,16 @@ const BolsaScreen = ({ irBolsa }) => {
     setSelectedDice(null);
   };
 
+  const vaciar = () => {
+    setDices([]);
+  };
+
   const lanzamiento = (dices) => {
-    let resultado = [];
-    let caras = [];
-    let cantidad = dices.length;
     dices.map((dice) => {
       let valor = Math.floor(Math.random() * dice.value + 1);
-      resultado = [...resultado, valor];
-      caras = [...caras, dice.value];
+      dice.result = valor;
     });
-    let final = "";
-    for (let i = 0; i < cantidad; i++) {
-      final =
-        final +
-        "Dado-" +
-        (i + 1) +
-        " (" +
-        caras[i] +
-        " caras) = " +
-        resultado[i] +
-        ". /// ";
-    }
-    alert("El resultado es " + final);
+    irResultados();
   };
 
   return (
@@ -195,15 +189,21 @@ const BolsaScreen = ({ irBolsa }) => {
           styleButtonType={styles.buttonLanzar}
           onPress={() => lanzamiento(dices)}
           title="Lanzar Dados"
-          disabled={false}
+          disabled={desactivadoLanzar}
         />
         <Button
-          styleButtonType={styles.buttonRegresar}
-          onPress={irBolsa}
-          title="Regresar"
+          styleButtonType={styles.buttonVaciar}
+          onPress={vaciar}
+          title="Vaciar Bolsa"
           disabled={false}
         />
       </View>
+      <Button
+        styleButtonType={styles.buttonRegresar}
+        onPress={irBolsa}
+        title="Regresar"
+        disabled={false}
+      />
     </View>
   );
 };

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   textoUno: {
     color: Colors.titulo,
-    paddingBottom: 20,
+    paddingBottom: 10,
     paddingTop: 10,
     fontSize: 48,
     textAlign: "center",
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
   textoDos: {
     color: Colors.texto,
     paddingBottom: 10,
-    paddingTop: 50,
+    paddingTop: 10,
     fontSize: 24,
     textAlign: "center",
     fontFamily: "open-sans",
@@ -135,7 +135,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   inputContainer: {
-    marginTop: 30,
+    marginTop: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -164,5 +164,22 @@ export const styles = StyleSheet.create({
   },
   buttonDesactivado: {
     backgroundColor: Colors.botonDesactivado,
+  },
+  buttonVaciar: {
+    backgroundColor: Colors.botonVaciar,
+  },
+  resultados: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+  resultadosTexto: {
+    fontFamily: "roboto-bold",
+    fontSize: 16,
+  },
+  resultPage: {
+    backgroundColor: Colors.fondoResultado,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -15,4 +15,6 @@ export default {
   botonDesactivado: "#696969",
   botonEliminar: "#FF0000",
   fondoBolsa: "#fcbf6b",
+  fondoResultado: "#BC8F8F",
+  botonVaciar: "#2E8B57",
 };
