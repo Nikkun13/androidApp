@@ -1,10 +1,10 @@
 import { Image, Text, View } from "react-native";
 
-import Button from "./Button";
+import Button from "../components/Button";
 import React from "react";
-import { styles } from "../styles";
+import { styles } from "../../styles";
 
-const MenuInicial = ({ irBolsa }) => {
+const MenuInicialScreen = ({ irBolsa }) => {
   return (
     <View style={styles.menu}>
       <View>
@@ -12,7 +12,7 @@ const MenuInicial = ({ irBolsa }) => {
         <Text style={styles.textoUno}>Soy Nicolás</Text>
       </View>
       <View>
-        <Image style={styles.imagen} source={require("../img/Dados.jpg")} />
+        <Image style={styles.imagen} source={require("../../img/Dados.jpg")} />
       </View>
       <Text style={styles.textoDos}>
         Como primera app crearé un simulador de dados.
@@ -27,4 +27,4 @@ const MenuInicial = ({ irBolsa }) => {
   );
 };
 
-export default MenuInicial;
+export default MenuInicialScreen;

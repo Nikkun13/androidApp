@@ -1,9 +1,10 @@
+import Colors from "./src/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ccc",
+    backgroundColor: Colors.fondoMenu,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -12,35 +13,38 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bolsa: {
-    backgroundColor: "#fcbf6b",
+    backgroundColor: Colors.fondoBolsa,
     alignItems: "center",
     justifyContent: "center",
   },
   textoUno: {
-    color: "#FF0000",
+    color: Colors.titulo,
     paddingBottom: 20,
     paddingTop: 10,
     fontSize: 48,
     textAlign: "center",
+    fontFamily: "open-sans-bold",
   },
   textoDos: {
-    color: "#000",
+    color: Colors.texto,
     paddingBottom: 10,
     paddingTop: 50,
     fontSize: 24,
     textAlign: "center",
+    fontFamily: "open-sans",
   },
   textoTres: {
-    color: "#000",
+    color: Colors.texto,
     fontSize: 16,
     textAlign: "center",
     padding: 10,
+    fontFamily: "open-sans",
   },
   numeroDado: {
-    color: "black",
+    color: Colors.texto,
     fontSize: 16,
-    fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "roboto-bold",
   },
   centrar: {
     alignItems: "stretch",
@@ -77,23 +81,23 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
   },
-  red: {
-    backgroundColor: "#FF6347",
+  colorCuatro: {
+    backgroundColor: Colors.dadoCuatro,
   },
-  blue: {
-    backgroundColor: "#87CEEB",
+  colorDiez: {
+    backgroundColor: Colors.dadoDiez,
   },
-  yellow: {
-    backgroundColor: "#F0E68C",
+  colorOcho: {
+    backgroundColor: Colors.dadoOcho,
   },
-  green: {
-    backgroundColor: "#90EE90",
+  colorDoce: {
+    backgroundColor: Colors.dadoDoce,
   },
-  white: {
-    backgroundColor: "#FFFAF0",
+  colorSeis: {
+    backgroundColor: Colors.dadoSeis,
   },
-  violet: {
-    backgroundColor: "#DDA0DD",
+  colorVeinte: {
+    backgroundColor: Colors.dadoVeinte,
   },
   modalMainView: {
     flex: 1,
@@ -144,21 +148,21 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonAgregar: {
-    backgroundColor: "#87CEFA",
+    backgroundColor: Colors.botonAgregar,
   },
   buttonEliminar: {
-    backgroundColor: "#FF4500",
+    backgroundColor: Colors.botonEliminar,
   },
   buttonCancelar: {
-    backgroundColor: "#EEE8AA",
+    backgroundColor: Colors.botonCancelar,
   },
   buttonLanzar: {
-    backgroundColor: "#FF8000",
+    backgroundColor: Colors.botonLanzar,
   },
   buttonRegresar: {
-    backgroundColor: "#7B68EE",
+    backgroundColor: Colors.botonBolsa,
   },
   buttonDesactivado: {
-    backgroundColor: "#696969",
+    backgroundColor: Colors.botonDesactivado,
   },
 });

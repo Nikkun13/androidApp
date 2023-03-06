@@ -2,16 +2,16 @@ import { Modal as RNmodal, Text, View } from "react-native";
 
 import Button from "./Button";
 import React from "react";
-import { styles } from "../styles";
+import { styles } from "../../styles";
 
 const Modal = ({
   dices,
   modalVisible,
   selectedDice,
-  add3Dice,
+  addThreeDices,
   removeDice,
   cancelModal,
-  desactivado3,
+  desactivadoOpcionTresDados,
 }) => {
   return (
     <RNmodal animationType="slide" transparent={true} visible={modalVisible}>
@@ -35,10 +35,10 @@ const Modal = ({
             <Button
               styleButtonType={styles.buttonAgregar}
               onPress={() => {
-                add3Dice(selectedDice.id, dices);
+                addThreeDices(selectedDice.id, dices);
               }}
               title="Agregar 3 Dados"
-              disabled={desactivado3}
+              disabled={desactivadoOpcionTresDados}
             />
             <Button
               styleButtonType={styles.buttonEliminar}
