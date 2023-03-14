@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import Modal from "../components/Modal";
 import { styles } from "../../styles";
 
-const BolsaScreen = ({ irBolsa, irResultados, dices, setDices }) => {
+const BolsaScreen = ({ navigation }) => {
   const [diceNumber, setDiceNumber] = useState("");
   const [colorDado, setColorDado] = useState("");
   const [desactivado, setDesactivado] = useState(false);
@@ -14,10 +14,12 @@ const BolsaScreen = ({ irBolsa, irResultados, dices, setDices }) => {
   const [desactivadoLanzar, setDesactivadoLanzar] = useState(true);
   const [selectedDice, setSelectedDice] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [dices, setDices] = useState([]);
 
   useEffect(() => {
     if (dices.length < 1) {
       setDesactivadoLanzar(true);
+      setDesactivado(false);
     } else {
       setDesactivadoLanzar(false);
       if (dices.length > 21) {
@@ -131,7 +133,7 @@ const BolsaScreen = ({ irBolsa, irResultados, dices, setDices }) => {
       let valor = Math.floor(Math.random() * dice.value + 1);
       dice.result = valor;
     });
-    irResultados();
+    navigation.navigate("Result", { dados: dices });
   };
 
   return (
@@ -200,7 +202,9 @@ const BolsaScreen = ({ irBolsa, irResultados, dices, setDices }) => {
       </View>
       <Button
         styleButtonType={styles.buttonRegresar}
-        onPress={irBolsa}
+        onPress={() => {
+          navigation.navigate("Home");
+        }}
         title="Regresar"
         disabled={false}
       />

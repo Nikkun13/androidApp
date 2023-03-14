@@ -4,11 +4,23 @@ import Button from "../components/Button";
 import React from "react";
 import { styles } from "../../styles";
 
-const ResultadosScreen = ({ irResultados, dices }) => {
-  if (dices == undefined) {
+const ResultadosScreen = ({ route, navigation }) => {
+  const dadosBolsa = route.params.dados;
+
+  if (dadosBolsa == undefined) {
     return (
-      <View>
-        <Text>Sin dados</Text>
+      <View style={styles.resultPage}>
+        <Text style={styles.textoUno}>Sin dados</Text>
+        <View>
+          <Button
+            styleButtonType={styles.buttonRegresar}
+            onPress={() => {
+              navigation.navigate("Bag");
+            }}
+            title="Ir a la Bolsa de Dados"
+            disabled={false}
+          />
+        </View>
       </View>
     );
   }
@@ -18,7 +30,7 @@ const ResultadosScreen = ({ irResultados, dices }) => {
         <Text style={styles.textoUno}>Resultados:</Text>
       </View>
       <FlatList
-        data={dices}
+        data={dadosBolsa}
         horizontal={false}
         numColumns={3}
         renderItem={(data) => (
@@ -36,7 +48,9 @@ const ResultadosScreen = ({ irResultados, dices }) => {
       <View>
         <Button
           styleButtonType={styles.buttonRegresar}
-          onPress={irResultados}
+          onPress={() => {
+            navigation.navigate("Bag");
+          }}
           title="Ir a la Bolsa de Dados"
           disabled={false}
         />

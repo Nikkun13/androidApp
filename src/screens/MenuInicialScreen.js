@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import React from "react";
 import { styles } from "../../styles";
 
-const MenuInicialScreen = ({ irBolsa }) => {
+const MenuInicialScreen = ({ navigation }) => {
   return (
     <View style={styles.menu}>
       <View>
@@ -19,7 +19,9 @@ const MenuInicialScreen = ({ irBolsa }) => {
       </Text>
       <Button
         styleButtonType={styles.buttonRegresar}
-        onPress={irBolsa}
+        onPress={() => {
+          navigation.navigate("Bag");
+        }}
         title="Ir a la Bolsa de Dados"
         disabled={false}
       />

@@ -9,10 +9,12 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   menu: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   bolsa: {
+    flex: 1,
     backgroundColor: Colors.fondoBolsa,
     alignItems: "center",
     justifyContent: "center",
@@ -42,7 +44,7 @@ export const styles = StyleSheet.create({
   },
   numeroDado: {
     color: Colors.texto,
-    fontSize: 16,
+    fontSize: 14,
     textAlign: "center",
     fontFamily: "roboto-bold",
   },
@@ -74,10 +76,10 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   contentList: {
-    padding: 10,
-    margin: 5,
-    width: 40,
-    height: 40,
+    padding: 5,
+    margin: 4,
+    width: 35,
+    height: 35,
     justifyContent: "center",
     borderRadius: 5,
   },
@@ -178,6 +180,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   resultPage: {
+    flex: 1,
     backgroundColor: Colors.fondoResultado,
     alignItems: "center",
     justifyContent: "center",
