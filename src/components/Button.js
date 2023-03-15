@@ -12,7 +12,7 @@ const Button = ({ styleButtonType, onPress, title, disabled }) => {
           onPress={onPress}
           disabled={disabled}
         >
-          <Text>{title}</Text>
+          <Text style={styles.buttonText}>{title}</Text>
         </Pressable>
       ) : (
         <Pressable
@@ -20,7 +20,7 @@ const Button = ({ styleButtonType, onPress, title, disabled }) => {
           onPress={onPress}
           disabled={disabled}
         >
-          <Text>{title}</Text>
+          <Text style={styles.buttonText}>{title}</Text>
         </Pressable>
       )}
     </>

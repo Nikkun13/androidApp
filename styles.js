@@ -1,7 +1,15 @@
+import { Dimensions, StyleSheet } from "react-native";
+
 import Colors from "./src/constants/Colors";
-import { StyleSheet } from "react-native";
+
+const tamanioUno = (40 * Dimensions.get("window").width) / 392;
+const tamanioDos = (24 * Dimensions.get("window").width) / 392;
+const tamanioTres = (16 * Dimensions.get("window").width) / 392;
+const tamanioCuatro = (14 * Dimensions.get("window").width) / 392;
+const tamanioCinco = (20 * Dimensions.get("window").width) / 392;
 
 export const styles = StyleSheet.create({
+  //Estilos referentes a cada Screen
   container: {
     flex: 1,
     backgroundColor: Colors.fondoMenu,
@@ -19,11 +27,19 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  resultPage: {
+    flex: 1,
+    backgroundColor: Colors.fondoResultado,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  //Estilos referentes al texto e imagenes
   textoUno: {
     color: Colors.titulo,
     paddingBottom: 10,
     paddingTop: 10,
-    fontSize: 48,
+    fontSize: tamanioUno,
     textAlign: "center",
     fontFamily: "open-sans-bold",
   },
@@ -31,22 +47,16 @@ export const styles = StyleSheet.create({
     color: Colors.texto,
     paddingBottom: 10,
     paddingTop: 10,
-    fontSize: 24,
+    fontSize: tamanioDos,
     textAlign: "center",
     fontFamily: "open-sans",
   },
   textoTres: {
     color: Colors.texto,
-    fontSize: 16,
+    fontSize: tamanioTres,
     textAlign: "center",
     padding: 10,
     fontFamily: "open-sans",
-  },
-  numeroDado: {
-    color: Colors.texto,
-    fontSize: 14,
-    textAlign: "center",
-    fontFamily: "roboto-bold",
   },
   centrar: {
     alignItems: "stretch",
@@ -55,17 +65,38 @@ export const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   imagen: {
-    height: 300,
-    width: 300,
+    height: Dimensions.get("window").height / 3,
+    minHeight: 200,
+    width: Dimensions.get("window").height / 3,
+    maxWidth: "80%",
+    minWidth: 200,
     borderRadius: 150,
+  },
+  inputContainer: {
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   input: {
     width: 150,
     borderBottomColor: "black",
     borderBottomWidth: 1,
-    fontSize: 16,
+    fontSize: tamanioTres,
     textAlign: "center",
     margin: 5,
+  },
+  resultadosTexto: {
+    fontFamily: "roboto-bold",
+    fontSize: tamanioTres,
+  },
+
+  //Estilos referentes a los dados
+  numeroDado: {
+    color: Colors.texto,
+    fontSize: tamanioCuatro,
+    textAlign: "center",
+    fontFamily: "roboto-bold",
   },
   diceContainer: {
     marginTop: 30,
@@ -101,6 +132,13 @@ export const styles = StyleSheet.create({
   colorVeinte: {
     backgroundColor: Colors.dadoVeinte,
   },
+  resultados: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+
+  //Estilos del Modal
   modalMainView: {
     flex: 1,
     justifyContent: "center",
@@ -124,7 +162,7 @@ export const styles = StyleSheet.create({
   modalTitle: {
     padding: 10,
     borderRadius: 5,
-    fontSize: 20,
+    fontSize: tamanioCinco,
     fontWeight: "bold",
     textAlign: "center",
   },
@@ -136,17 +174,13 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  inputContainer: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+
+  //Estilos de los Botones
   button: {
     borderRadius: 20,
     padding: 10,
     margin: 10,
-    width: 160,
+    width: Dimensions.get("window").width / 2.4,
     alignItems: "center",
   },
   buttonAgregar: {
@@ -170,19 +204,7 @@ export const styles = StyleSheet.create({
   buttonVaciar: {
     backgroundColor: Colors.botonVaciar,
   },
-  resultados: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-  },
-  resultadosTexto: {
-    fontFamily: "roboto-bold",
-    fontSize: 16,
-  },
-  resultPage: {
-    flex: 1,
-    backgroundColor: Colors.fondoResultado,
-    alignItems: "center",
-    justifyContent: "center",
+  buttonText: {
+    fontSize: tamanioCuatro,
   },
 });
